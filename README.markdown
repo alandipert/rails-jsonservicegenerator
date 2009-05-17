@@ -1,4 +1,4 @@
-To use, rename this repo to: 
+To use, rename this repo's directory to: 
 
       ~/.rails/generators/service
 

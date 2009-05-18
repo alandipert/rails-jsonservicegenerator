@@ -107,4 +107,18 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # GET /<%= table_name %>/schema.json
+  def schema
+    schema = Array.new
+    columns = Array.new
+    <%= class_name %>.columns.each do |column|
+      columns.push({"name" => column.name, "type" => column.type});
+    end
+    schema.push({<%= class_name %>.table_name => columns});
+
+    respond_to do |format|
+      format.any { render :json => schema }
+    end
+  end
 end

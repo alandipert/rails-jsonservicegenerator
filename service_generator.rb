@@ -69,7 +69,12 @@ class ServiceGenerator < Rails::Generator::NamedBase
       m.template('helper.rb',          File.join('app/helpers',     controller_class_path, "#{controller_file_name}_helper.rb"))
       m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
 
+      route_string = ":#{controller_file_name}, :collection => { :schema=> :get }"
+      def route_string.to_sym; to_s; end
+      def route_string.inspect; to_s; end
+
       m.route_resources controller_file_name
+      m.route_resources route_string
 
       m.dependency 'model', [name] + @args, :collision => :skip
     end
